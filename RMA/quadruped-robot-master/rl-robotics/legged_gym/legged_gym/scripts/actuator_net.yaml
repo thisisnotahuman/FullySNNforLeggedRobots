@@ -1,0 +1,63 @@
+
+diff_env:
+  name: AntEnv
+  stochastic_env: True
+  episode_length: 1000
+  MM_caching_frequency: 16
+
+algorithm:
+  name: adam
+
+model:
+  name: continuous_a2c_logstd
+
+network:
+  name: actor_critic
+  separate: False
+  space:
+    continuous:
+      mu_activation: None
+      sigma_activation: None
+
+      mu_init:
+        name: default
+      sigma_init:
+        name: const_initializer
+        val: 0
+      fixed_sigma: True
+  mlp:
+    units: [32, 32, 32]
+    activation: softsign    
+    initializer:
+      name: default
+    regularizer:
+      name: None
+
+load_checkpoint: False
+load_path: legged_gym/logs/nets/a1_motor.pt
+data:
+  dataset_path: legged_gym/logs/dataset/motor.bin
+
+config:
+  multi_gpu: False
+  mixed_precision: False
+  normalize_input: True
+  normalize_value: True
+  normalize_advantage: True
+  gamma: 0.99
+  tau: 0.95
+  learning_rate: 3e-4
+  lr_schedule: adaptive  # [linear]
+  lr_threshold: 0.008
+  kl_threshold: 0.008
+  max_epochs: 5000
+  save_best_after: 100
+  save_frequency: 400
+  grad_norm: 1.0
+  entropy_coef: 0.0
+  truncate_grads: True
+  batch_size: 32
+  mini_epochs: 5
+  clip_value: True
+  
+general: {}

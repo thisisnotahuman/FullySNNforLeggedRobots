@@ -1,0 +1,95 @@
+<launch>
+    <!-- size of map, change the size inflate x, y, z according to your application -->
+    <arg name="map_size_x" value="150.0"/>
+    <arg name="map_size_y" value="150.0"/>
+    <arg name="map_size_z" value="3.0"/>
+    <arg name="drone_id" value="0"/>
+    <!-- topic of your odometry such as VIO or LIO -->
+    <!-- <arg name="odom_topic" default="/vins_estimator/imu_propagate"/> -->
+    <!-- <arg name="odom_topic" default="/vins_estimator/odometry"/> -->
+    
+    <arg name="odom_topic" default="/Odometry"/>
+    <!-- main algorithm params -->
+    <!-- <arg name="odom_topic" default="/vrpn/odometry"/>  -->
+    <include file="$(find ego_planner)/launch/advanced_param_exp.xml">
+        <arg name="drone_id" value="$(arg drone_id)"/>
+        <arg name="map_size_x_" value="$(arg map_size_x)"/>
+        <arg name="map_size_y_" value="$(arg map_size_y)"/>
+        <arg name="map_size_z_" value="$(arg map_size_z)"/>
+        <arg name="odometry_topic" value="$(arg odom_topic)"/>
+        <!-- camera pose: transform of camera frame in the world frame -->
+        <!-- depth topic: depth image, 640x480 by default -->
+        <!-- don't set cloud_topic if you already set these ones! -->
+        <arg name="camera_pose_topic" value="nouse1"/>
+        <arg name="depth_topic" value="/camera/depth/image_rect_raw"/>
+        <!-- topic of point cloud measurement, such as from LIDAR  -->
+        <!-- don't set camera pose and depth, if you already set this one! -->
+        <!-- <arg name="cloud_topic" value="nouse2"/> -->
+        <!-- <arg name="cloud_topic" value="/velodyne_points"/> -->
+        <arg name="cloud_topic" value="/cloud_registered"/>
+        <!-- intrinsic params of the depth camera -->
+        <arg name="cx" value="319.5299987792969"/>
+        <arg name="cy" value="236.6090393066"/>
+        <arg name="fx" value="385.5613098144531"/>
+        <arg name="fy" value="385.5613098144531"/>
+        <!-- maximum velocity and acceleration the drone will reach -->
+        <!-- <arg name="max_vel" value="0.5" /> -->
+        <!-- <arg name="max_acc" value="0.53" /> -->
+        <arg name="max_vel" value="1.5" /> 
+        <arg name="max_acc" value="0.93" /> 
+        <!--always set to 1.5 times grater than sensing horizen-->
+        <arg name="planning_horizon" value="6.0" />
+        <arg name="use_distinctive_trajs" value="false" />
+        <!-- 1: use 2D Nav Goal to select goal  -->
+        <!-- 2: use global waypoints below  -->
+        <arg name="flight_type" value="1" />
+        <!-- global waypoints -->
+        <!-- It generates a piecewise min-snap traj passing all waypoints -->
+        <arg name="point_num" value="5"/>
+        <arg name="point0_x" value="0.0" />
+        <arg name="point0_y" value="0.0" />
+        <arg name="point0_z" value="0.0" />
+        <arg name="point1_x" value="13.2764943277" />
+        <arg name="point1_y" value="3.32" />
+        <arg name="point1_z" value="0.0" />
+        <arg name="point2_x" value="13.8294767303" />
+        <arg name="point2_y" value="-5.6427" />
+        <arg name="point2_z" value="0.0" />
+        <arg name="point3_x" value="4.94" />
+        <arg name="point3_y" value="0.07" />
+        <arg name="point3_z" value="0.0" />
+        <arg name="point4_x" value="0" />
+        <arg name="point4_y" value="0" />
+        <arg name="point4_z" value="0" />
+        <!-- <arg name="point5_x" value="11.2814690416" />
+        <arg name="point5_y" value="5.86974861392" />
+        <arg name="point5_z" value="0.0" /> -->
+    </include>
+    <!-- trajectory server -->
+    <node pkg="ego_planner" name="drone_$(arg drone_id)_traj_server" type="traj_server" output="screen">
+        <remap from="position_cmd" to="/setpoints_cmd"/>
+        <remap from="~planning/trajectory" to="drone_$(arg drone_id)_planning/trajectory"/>
+        <remap from="~heartbeat" to="drone_$(arg drone_id)_ego_planner_node/planning/heartbeat"/>
+        <param name="traj_server/time_forward" value="1.0" type="double"/>
+    </node>
+
+    <!-- <node pkg="tf" type="static_transform_publisher" name="world"
+          args="-0.0 0.0 -0.0 0.0 0.0 0.0 /camera_init /map 100" /> -->
+<!-- 
+    <node pkg="tf" type="static_transform_publisher" name="camera_init"
+          args="-0.0 0.0 0 0.0 0.0 0.0  /camera_init /world 100" /> -->
+    <node pkg="tf2_ros" type="static_transform_publisher" name="world" args="0 0 0 0 0 0 1 camera_init world" />
+
+    <!-- <node pkg="tf" type="static_transform_publisher" name="velodyne"
+          args="-0.0 0.0 0 0.0 0.0 0.0 /body /velodyne 100" /> -->
+    <!--include file="$(find swarm_bridge)/launch/bridge_tcp_drone.launch">
+        <arg name="drone_id" value="$(arg drone_id)"/>
+        <arg name="odom_topic" value="$(arg odom_topic)"/>
+    </include>
+
+
+    <include file="$(find manual_take_over)/launch/take_over_drone.launch">
+	<arg name="drone_id" value="$(arg drone_id)"/>
+    </include-->
+
+</launch>

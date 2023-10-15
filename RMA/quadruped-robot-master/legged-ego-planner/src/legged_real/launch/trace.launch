@@ -1,0 +1,32 @@
+<launch>
+    <!-- run -->
+    <!-- <node pkg="legged_real" type="trace" name="trace" output="screen">
+        <param name="K_pos_forward" value="2.5" type="double"/>
+        <param name="K_vel_forward" value="0.0" type="double"/>
+        <param name="K_pos_side" value="0.5" type="double"/>
+        <param name="K_vel_side" value="0.0" type="double"/>
+        <param name="K_yaw" value="1.77" type="double"/>
+        <param name="v_forward_max" value="4" type="double"/> 
+        <param name="v_side_max" value="1.26" type="double"/> 
+        <param name="yawrate_max" value="2.4" type="double"/> 
+    </node> -->
+
+    <!-- walk -->
+    <node pkg="legged_real" type="trace" name="trace" output="screen">
+        <!-- <param name="K_pos_forward" value="1.5" type="double"/>
+        <param name="K_pos_side" value="0.50" type="double"/>
+        <param name="K_yaw" value="0.8" type="double"/>
+        <param name="K_bbox_offset" value="0.0" type="double"/> -->
+
+        <param name="K_pos_forward" value="1.0" type="double"/>
+        <param name="K_pos_side" value="0.50" type="double"/>
+        <param name="K_yaw" value="0.4" type="double"/>
+        <param name="K_bbox_offset" value="0.2" type="double"/>
+
+
+        <param name="v_forward_max" value="1.5" type="double"/> 
+        <param name="v_side_max" value="0.26" type="double"/> 
+        <param name="yawrate_max" value="2.4" type="double"/> 
+    </node>
+
+</launch>

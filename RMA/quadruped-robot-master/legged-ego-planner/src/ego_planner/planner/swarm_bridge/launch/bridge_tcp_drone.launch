@@ -1,0 +1,35 @@
+<launch>
+
+  <arg name="drone_id" default="2"/>
+  <arg name="odom_topic" default="/vins_estimator/imu_propagate"/>
+
+  <node pkg="swarm_bridge" name="drone_$(arg drone_id)_bridge_node_tcp" type="bridge_node_tcp" output="screen">
+  
+    <remap from="~my_odom" to="$(arg odom_topic)"/>
+
+    <param name="self_id" value="$(arg drone_id)"/>
+    <param name="is_ground_station" value="false"/>
+    <param name="odom_max_freq" value="1"/>
+    <param name="drone_num" value="10"/>
+    <param name="drone_ip_0" value="192.168.2.100" type="string"/>
+    <param name="drone_ip_1" value="192.168.2.101" type="string"/>
+    <param name="drone_ip_2" value="192.168.2.102" type="string"/>
+    <param name="drone_ip_3" value="192.168.2.103" type="string"/>
+    <param name="drone_ip_4" value="192.168.2.104" type="string"/>
+    <param name="drone_ip_5" value="192.168.2.105" type="string"/>
+    <param name="drone_ip_6" value="192.168.2.106" type="string"/>
+    <param name="drone_ip_7" value="192.168.2.107" type="string"/>
+    <param name="drone_ip_8" value="192.168.2.108" type="string"/>
+    <param name="drone_ip_9" value="192.168.2.109" type="string"/>
+    <param name="ground_station_num" value="1"/>
+    <param name="ground_station_ip_0" value="192.168.2.39" type="string"/>
+
+  </node>
+
+  <node pkg="swarm_bridge" name="traj2odom_node" type="traj2odom_node" output="screen">
+
+    <param name="odom_hz" value="30" />
+
+  </node>
+
+</launch>
