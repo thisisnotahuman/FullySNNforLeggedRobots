@@ -7,7 +7,7 @@ A SNN-based based policy applied to two reinforcement learning methods, history 
 This is the GitHub repo for the paper *"[Fully Spiking Neural Network for Legged Robots](http://export.arxiv.org/abs/2310.05022)"*
 
 ## Software architecture
-This repository consists of below directories(It is recommended that different virtual environments are prepared for each of them, as described in readme.md in the respective folders):
+This repository consists of below directories (It is recommended that different virtual environments are prepared for each of them, as described in readme.md in the respective folders):
 - RMA: mainly A1.
 - AMP: mainly A1.
 - HUMANOID: MIT Humanoid.
