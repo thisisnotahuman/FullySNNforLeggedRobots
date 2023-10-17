@@ -1,8 +1,6 @@
 # Fully Spiking Neural Network for Legged Robots
 ![./](top_taser.png)
 
-# rl-robotics
-
 ## Introduction
 A SNN-based based policy applied to two reinforcement learning methods, history trajectory and imitation learning, respectively, and deployed on robots such as A1, MIT Humanoid, and Cassie.
 ## Software architecture
