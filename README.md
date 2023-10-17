@@ -3,6 +3,9 @@
 
 ## Introduction
 A SNN-based based policy applied to two reinforcement learning methods, history trajectory and imitation learning, respectively, and deployed on robots such as A1, MIT Humanoid, and Cassie.
+
+This is the GitHub repo for the paper *"[Fully Spiking Neural Network for Legged Robots](http://export.arxiv.org/abs/2310.05022)"*
+
 ## Software architecture
 This repository consists of below directories(It is recommended that different virtual environments are prepared for each of them, as described in readme.md in the respective folders):
 - RMA: mainly A1.
